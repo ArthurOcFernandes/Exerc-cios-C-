@@ -56,7 +56,7 @@ class Carro
     }
 
     public void frear(){
-        Console.WriteLine("Frear...");
+        Console.WriteLine("Freando...");
         if(velocidade > 0){
             velocidade = velocidade - 5;
         }
