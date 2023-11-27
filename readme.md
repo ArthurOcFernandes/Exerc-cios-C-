@@ -1,35 +1,96 @@
-1. Criar uma variável chamada **notaMedia** e atribua um valor inteiro a ela. Caso seu valor seja maior ou igual a 5, escreva na tela "Nota suficiente para aprovação".
+1. Criar um programa que permita ao usuário inserir o nome do aluno e suas notas, e em seguida calcule e exiba a média das notas.
 
-R:
 ```
-int media = 5;
-if(media >= 5){
-    Console.WriteLine("Nota suficiente para aprovação");
+Dictionary<string, List<double>> notasAlunos = new Dictionary<string, List<double>>();
+
+// Adicione notas para alguns alunos
+notasAlunos["João"] = new List<double> { 8.5, 9.0, 7.5 };
+notasAlunos["Maria"] = new List<double> { 7.0, 8.0, 6.5 };
+
+foreach (var aluno in notasAlunos)
+{
+    double media = aluno.Value.Average();
+    Console.WriteLine($"Média de {aluno.Key}: {media}");
 }
 ```
 
-2. Criar uma lista de linguagens de programação, com as linguagens C#, Java e JavaScript.
 
-R:
-
-```
-List<string> linguagens = {"C#", "Java", "JavaScript"};
-```
-
-3. Exibir o valor "C#" no console, utilizando a lista criada no exercício anterior.
-
-R:
+2. Criar um programa que gerencie o estoque de uma loja. Utilize um dicionário para armazenar produtos e suas quantidades em estoque. 
 
 ```
-Console.WriteLine(linguagens[0]);
+Dictionary<string, int> estoque = new Dictionary<string, int>
+{
+    { "camisetas", 50 },
+    { "calças", 30 },
+    { "tênis", 20 },
+    // Adicione mais produtos conforme necessário
+};
+
+Console.Write("Digite o nome do produto: ");
+string produto = Console.ReadLine().ToLower();
+
+if (estoque.ContainsKey(produto))
+{
+    Console.WriteLine($"Quantidade em estoque de {produto}: {estoque[produto]} unidades.");
+}
+else
+{
+    Console.WriteLine("Produto não encontrado no estoque.");
+}
 ```
 
-4. Criar um programa que, dado a entrada de dados de um número n inteiro, a partir do teclado, exibir a n-ésima posição de uma lista.
-
-R:
+3. Crie um programa que implemente um quiz simples de perguntas e respostas. Utilize um dicionário para armazenar as perguntas e as respostas corretas.
 
 ```
-int posicao = int(Console.read());
-Console.WriteLine(lista[posicao]);
+Dictionary<string, string> perguntasERespostas = new Dictionary<string, string>
+{
+    { "Qual é a capital do Brasil?", "Brasília" },
+    { "Quanto é 7 vezes 8?", "56" },
+    { "Quem escreveu 'Romeu e Julieta'?", "William Shakespeare" },
+    // Adicione mais perguntas e respostas conforme necessário
+};
+
+int pontuacao = 0;
+
+foreach (var pergunta in perguntasERespostas)
+{
+    Console.WriteLine(pergunta.Key);
+    Console.Write("Sua resposta: ");
+    string respostaUsuario = Console.ReadLine();
+
+    if (respostaUsuario.ToLower() == pergunta.Value.ToLower())
+    {
+        Console.WriteLine("Correto!\n");
+        pontuacao++;
+    }
+    else
+    {
+        Console.WriteLine($"Incorreto. A resposta correta é: {pergunta.Value}\n");
+    }
+}
+
+Console.WriteLine($"Pontuação final: {pontuacao} de {perguntasERespostas.Count}");
+
 ```
 
+4. Criar um programa que simule um sistema de login utilizando um dicionário para armazenar nomes de usuário e senhas.
+
+```
+Dictionary<string, string> usuarios = new Dictionary<string, string>
+{
+    { "user1", "senha123" },
+    { "user2", "abc456" },
+    // Adicione mais usuários conforme necessário
+};
+
+Console.Write("Digite o nome de usuário: ");
+string nomeUsuario = Console.ReadLine();
+
+Console.Write("Digite a senha: ");
+string senha = Console.ReadLine();
+
+if (usuarios.ContainsKey(nomeUsuario) && usuarios[nomeUsuario] == senha)
+    Console.WriteLine("Login bem-sucedido!");
+else
+    Console.WriteLine("Nome de usuário ou senha incorretos.");
+```
