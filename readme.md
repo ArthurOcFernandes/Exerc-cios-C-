@@ -1,71 +1,28 @@
-1. Criar uma classe que representa uma conta bancária, com um número indicador, titular, saldo e senha.
+# Listas de exercícios de C#
 
-```
-class Conta{
-    public string titular;
-    public int idConta;
-    public float saldo;
-    public int senha;
-}
-```
+Praticar exercícios é fundamental para o desenvolvimento de habilidades na linguagem de programação C# para iniciantes. Ao enfrentar desafios práticos, como resolver problemas ou criar pequenos programas, as novas pessoas programadoras ganham uma compreensão mais profunda dos conceitos fundamentais da linguagem. A prática regular não apenas solidifica a sintaxe e a lógica de programação, mas também promove a resolução de problemas de maneira eficiente. Além disso, ao trabalhar em exercícios, os iniciantes têm a oportunidade de experimentar diferentes abordagens e aprender com os erros, construindo uma base sólida para futuros projetos mais complexos. Em última análise, a prática consistente com exercícios desempenha um papel crucial no crescimento e na confiança de programadores iniciantes, preparando-os para desafios mais avançados na linguagem C#.
 
-2. Criar um objeto do tipo Conta, adicionar dados e mostrar as informações **titular** e **saldo** no console, utilizando interpolação de strings.
+Neste repositório estão contidas possíveis soluções para as listas de exercícios da formação [**"Aprendendo a programar em C# com Orientação a Objetos"**](https://cursos.alura.com.br/formacao-c-sharp-orientacao-objetos), no formato de **Jupyter Notebooks**.
 
-```
-Conta conta = new Conta();
-conta.titular = "Gui Lima"
-conta.id = 1;
-conta.saldo = 20.00;
-conta.senha = 1234;
+Para acessá-los, é necessário utilizar a ferramenta **Visual Studio Code**, com a seguinte extensão
 
-Console.WriteLine("INFORMAÇÕES DA CONTA:");
-Console.WriteLine($"Titular: {conta.titular}"); 
-Console.WriteLine($"Saldo atual: {conta.saldo}");
-```
+- [**Polyglot Notebooks**](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
 
-3. Desenvolver um método da classe Conta que exibe suas informações.
+Que permite a criação de Jupyter Notebooks que sejam interpretados em diferentes linguagens de programação.
 
-```
-public void exibirInformacoes(){
-    Console.WriteLine("INFORMAÇÕES DA CONTA:");
-    Console.WriteLine($"Titular: {conta.titular}"); 
-    Console.WriteLine($"Saldo atual: {conta.saldo}");
-}
-```
+Além disso, é necessário instalar o **Pacote de desenvolvimento .Net para VS Code**, que está disponível para [Windows](https://aka.ms/dotnet-coding-pack-win) e [MacOs](https://aka.ms/dotnet-coding-pack-mac)
 
-4. Desenvolver uma classe que modele um carro, e que contenha os métodos **acelerar**, **frear** e **buzinar**
+## C#: Criando sua primeira aplicação
 
-```
-class Carro
-{
-    public string fabricante;
-    public string modelo;
-    public int ano;
-    public int quantidadePortas;
-    public int velocidade = 0;
+| #   | Aula                                  | Notebook |
+| --- | ------------------------------------- | -------- | 
+|  1  |  Criando o primeiro Programa          |   [Execícios](./Resoluções/Curso-1-Aula-1.ipynb)        |
+|  2  |  Tipos e funções no C#                |   [Execícios](./Resoluções/Curso-1-Aula-2.ipynb)        |
+|  3  |  Listas e Loops no C#                 |   [Execícios](./Resoluções/Curso-1-Aula-3.ipynb)        |
+|  4  |  Dicionários e avaliação de bandas    |   [Execícios](./Resoluções/Curso-1-Aula-4.ipynb)        |
 
-    public void exibirInformacoes(){
-        Console.WriteLine($"Informações do carro: {this.fabricante} {this.modelo}, {this.quantidadePortas} portas, {this.ano}");
-    }
-    
-    public void acelerar(){
-        Console.WriteLine("Acelerando...");
-        if(velocidade < 100){
-            velocidade = velocidade + 5;
-        }
-    }
+## C#: Aplicando a Orientação a Objetos
 
-    public void frear(){
-        Console.WriteLine("Frear...");
-        if(velocidade > 0){
-            velocidade = velocidade - 5;
-        }
-    }
-
-    public void buzinar(){
-        Console.WriteLine("Bi Bi");
-    }
-}
-
-```
-
+| #   | Aula                                  | Notebook |
+| --- | ------------------------------------- | -------- | 
+|  1  |  Classe e método no C#                |   [Execícios](./Resoluções/Curso-2-Aula-1.ipynb)| 
