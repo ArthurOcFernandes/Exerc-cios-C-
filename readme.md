@@ -23,12 +23,12 @@ void ExibirQuatroOperacoes(){
 2. Criar uma lista de bandas vazia e adicionar suas bandas prediletas em seguida.
 
 ```
-List<string> bandas = new List<String>();
+List<string> bandas = new List<string>();
 
-bandas.add("The Beatles");
-bandas.add("Pink Floyd");
-bandas.add("U2");
-bandas.add("Ira!");
+bandas.Add("The Beatles");
+bandas.Add("Pink Floyd");
+bandas.Add("U2");
+bandas.Add("Ira!");
 
 ```
 
