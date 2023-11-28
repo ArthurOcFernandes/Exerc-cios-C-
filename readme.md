@@ -1,23 +1,25 @@
-1. Escrever uma função que leia dois números de ponto flutuante a e b do teclado e exibir no console o resultado de suas quatro operações básicas (adição, subtração, divisão e multiplicação), utilizando interpolação de strings.
+1. Escrever uma função que a partir de dois números de ponto flutuante a e b exiba no console o resultado de suas quatro operações básicas (adição, subtração, divisão e multiplicação), utilizando interpolação de strings.
 
 R:
 
 ```
 void ExibirQuatroOperacoes(){
 
-    float a = float(Console.Read());
-    float b = float(Console.Read());
+float a = 4;
+float b = 8;
 
-    float soma = a + b;
-    float subtracao = a - b;
-    float divisao = a / b;
-    float multiplicacao = a * b;
+float soma = a + b;
+float subtracao = a - b;
+float divisao = a / b;
+float multiplicacao = a * b;
 
-    Console.WriteLine($"a + b = {soma}");
-    Console.WriteLine($"a - b = {subtracao}");
-    Console.WriteLine($"a / b = {divisao}");
-    Console.WriteLine($"a * b = {multiplicacao}");
+Console.WriteLine($"a + b = {soma}");
+Console.WriteLine($"a - b = {subtracao}");
+Console.WriteLine($"a / b = {divisao}");
+Console.WriteLine($"a * b = {multiplicacao}");
 }
+
+ExibirQuatroOperacoes();
 ```
 
 2. Criar uma lista de bandas vazia e adicionar suas bandas prediletas em seguida.
@@ -74,12 +76,11 @@ double media = soma / numeros.Count;
 Console.WriteLine($"A média dos elementos da lista é: {media}");
 ```
 
-6. Desenvolver um programa que exibe a tabuada de um número fornecido pelo usuário.
+6. Desenvolver um programa que exibe a tabuada de um número.
 
 
 ```
-Console.Write("Digite um número para ver a tabuada: ");
-int numero = int.Parse(Console.ReadLine());
+int numero = 5;
 
 Console.WriteLine($"Tabuada do {numero}:");
 
@@ -91,18 +92,13 @@ for (int i = 1; i <= 10; i++)
 
 ```
 
-7. Desenvolver uma calculadora simples que realiza as quatro operações básicas, a partir de dois números fornecidos pelo usuário, e a operação que deve ser feita.
+7. Desenvolver uma calculadora simples que realiza as quatro operações básicas, a partir dado dois numeros e um operador.
 
 ```
 
-Console.Write("Digite o primeiro número: ");
-double numero1 = double.Parse(Console.ReadLine());
-
-Console.Write("Digite o segundo número: ");
-double numero2 = double.Parse(Console.ReadLine());
-
-Console.Write("Digite a operação (+, -, *, /): ");
-char operacao = char.Parse(Console.ReadLine());
+double numero1 = 5;
+double numero2 = 4;
+char operacao = '+';
 
 double resultado = 0;
 
