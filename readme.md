@@ -13,10 +13,10 @@ void ExibirQuatroOperacoes(){
     float divisao = a / b;
     float multiplicacao = a * b;
 
-    Console.WriteLine($"a + b = {soma}")
-    Console.WriteLine($"a - b = {subtracao}")
-    Console.WriteLine($"a / b = {divisao}")
-    Console.WriteLine($"a * b = {multiplicacao}")
+    Console.WriteLine($"a + b = {soma}");
+    Console.WriteLine($"a - b = {subtracao}");
+    Console.WriteLine($"a / b = {divisao}");
+    Console.WriteLine($"a * b = {multiplicacao}");
 }
 ```
 
