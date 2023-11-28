@@ -16,13 +16,13 @@ Além disso, é necessário instalar o **Pacote de desenvolvimento .Net para VS 
 
 | #   | Aula                                  | Notebook |
 | --- | ------------------------------------- | -------- | 
-|  1  |  Criando o primeiro Programa          |   [Execícios](./Resoluções/Curso-1-Aula-1.ipynb)        |
-|  2  |  Tipos e funções no C#                |   [Execícios](./Resoluções/Curso-1-Aula-2.ipynb)        |
-|  3  |  Listas e Loops no C#                 |   [Execícios](./Resoluções/Curso-1-Aula-3.ipynb)        |
-|  4  |  Dicionários e avaliação de bandas    |   [Execícios](./Resoluções/Curso-1-Aula-4.ipynb)        |
+|  1  |  Criando o primeiro Programa          |   [Exercícios](./Resoluções/Curso-1-Aula-1.ipynb)        |
+|  2  |  Tipos e funções no C#                |   [Exercícios](./Resoluções/Curso-1-Aula-2.ipynb)        |
+|  3  |  Listas e Loops no C#                 |   [Exercícios](./Resoluções/Curso-1-Aula-3.ipynb)        |
+|  4  |  Dicionários e avaliação de bandas    |   [Exercícios](./Resoluções/Curso-1-Aula-4.ipynb)        |
 
 ## C#: Aplicando a Orientação a Objetos
 
 | #   | Aula                                  | Notebook |
 | --- | ------------------------------------- | -------- | 
-|  1  |  Classe e método no C#                |   [Execícios](./Resoluções/Curso-2-Aula-1.ipynb)| 
+|  1  |  Classe e método no C#                |   [Exercícios](./Resoluções/Curso-2-Aula-1.ipynb)| 
