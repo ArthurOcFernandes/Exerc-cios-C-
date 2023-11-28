@@ -9,13 +9,17 @@ notasAlunos["Maria"] = new List<double> { 7.0, 8.0, 6.5 };
 
 foreach (var aluno in notasAlunos)
 {
-    double media = aluno.Value.Average();
+    double soma = 0;
+    for(int i = 0; i < aluno.Value.Count ; i++){
+        soma += aluno.Value[i];
+    }
+    double media = soma / aluno.Value.Count;
     Console.WriteLine($"Média de {aluno.Key}: {media}");
 }
 ```
 
 
-2. Criar um programa que gerencie o estoque de uma loja. Utilize um dicionário para armazenar produtos e suas quantidades em estoque. 
+2. 2. Criar um programa que gerencie o estoque de uma loja. Utilize um dicionário para armazenar produtos e suas quantidades em estoque e mostre, a partir do nome de um produto, sua quantidade em estoque. 
 
 ```
 Dictionary<string, int> estoque = new Dictionary<string, int>
@@ -26,8 +30,7 @@ Dictionary<string, int> estoque = new Dictionary<string, int>
     // Adicione mais produtos conforme necessário
 };
 
-Console.Write("Digite o nome do produto: ");
-string produto = Console.ReadLine().ToLower();
+string produto = "camisetas";
 
 if (estoque.ContainsKey(produto))
 {
@@ -83,11 +86,8 @@ Dictionary<string, string> usuarios = new Dictionary<string, string>
     // Adicione mais usuários conforme necessário
 };
 
-Console.Write("Digite o nome de usuário: ");
-string nomeUsuario = Console.ReadLine();
-
-Console.Write("Digite a senha: ");
-string senha = Console.ReadLine();
+string nomeUsuario = "user1";
+string senha = "senha123";
 
 if (usuarios.ContainsKey(nomeUsuario) && usuarios[nomeUsuario] == senha)
     Console.WriteLine("Login bem-sucedido!");
