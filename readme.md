@@ -1,4 +1,4 @@
-1. Criar uma classe que representa uma conta bancária, com um número indicador, titular, saldo e senha.
+1. Reescrever a classe Conta, utilizando properties. 
 
 ```
 class Conta{
@@ -9,31 +9,17 @@ class Conta{
 }
 ```
 
-2. Criar um objeto do tipo Conta, adicionar dados e mostrar as informações **titular** e **saldo** no console, utilizando interpolação de strings.
-
+R:
 ```
-Conta conta = new Conta();
-conta.titular = "Gui Lima"
-conta.id = 1;
-conta.saldo = 20.00;
-conta.senha = 1234;
-
-Console.WriteLine("INFORMAÇÕES DA CONTA:");
-Console.WriteLine($"Titular: {conta.titular}"); 
-Console.WriteLine($"Saldo atual: {conta.saldo}");
-```
-
-3. Desenvolver um método da classe Conta que exibe suas informações.
-
-```
-public void exibirInformacoes(){
-    Console.WriteLine("INFORMAÇÕES DA CONTA:");
-    Console.WriteLine($"Titular: {conta.titular}"); 
-    Console.WriteLine($"Saldo atual: {conta.saldo}");
+class Conta{
+    public string Titular {get; set;}
+    public int IdConta {get; set;}
+    public float Saldo {get; set;}
+    public int Senha {get; set;}
 }
 ```
 
-4. Desenvolver uma classe que modele um carro, e que contenha os métodos **acelerar**, **frear** e **buzinar**
+2. Reescrever os atributos da classe Carro, de modo que eles sejam properties, e adicionar uma nova propertie **DescricaoDetalhada**, que mostra o fabricante, modelo e ano do carro.
 
 ```
 class Carro
@@ -42,30 +28,81 @@ class Carro
     public string modelo;
     public int ano;
     public int quantidadePortas;
-    public int velocidade = 0;
+}
+```
+R:
+```
+class Carro
+{
+    public string Fabricante {get; set;}
+    public string Modelo {get; set;}
+    public int Ano {get; set;}
+    public int QuantidadePortas{get; set;}
+    public string DescricaoDetalhada => $"Modelo do carro: {this.Fabricante} {this.Modelo} {this.Ano}";
+}
+```
 
-    public void exibirInformacoes(){
-        Console.WriteLine($"Informações do carro: {this.fabricante} {this.modelo}, {this.quantidadePortas} portas, {this.ano}");
+3. Reescrever a propriedade **Ano** da classe carro, para que ela apenas aceite valores entre 1960 e 2023.
+
+R:
+```
+class Carro
+{
+    private int ano;
+    public string Fabricante {get; set;}
+    public string Modelo {get; set;}
+    public int Ano {
+        get => ano; 
+        set 
+        {
+            if(value < 1960 || value > 2023){
+                Console.WriteLine("Valor inválido, insira um ano entre 1960 e 2023");
+            } else {
+                ano = value;
+            }
+        }
+    }
+    public int QuantidadePortas{get; set;}
+    public string DescricaoDetalhada => $"Modelo do carro: {this.Fabricante} {this.Modelo} {this.Ano}";
+}
+```
+
+4. Desenvolver a classe `Produto`, com os atributos `nome`, `marca`, `preco` e `estoque`. Além disso, garantir que o preço e o estoque do produto sejam valores positivos e criar uma propriedade que mostra detalhadamente as informações do produto, para que seja usado pela equipe de vendas.
+
+R:
+
+```
+class Produto
+{
+    private double preco;
+    private int estoque;
+    public string Nome {get; set;}
+    public string Marca {get; set;}
+    public double Preco {
+        get => preco; 
+        set
+        {
+            if(value > 0)
+                preco = value;
+            else
+                preco = 10;
+        }
     }
     
-    public void acelerar(){
-        Console.WriteLine("Acelerando...");
-        if(velocidade < 100){
-            velocidade = velocidade + 5;
+    public int Estoque {
+        get => estoque; 
+        set 
+        {
+            if(value > 0)
+                estoque = value;
+            else
+                estoque = 0;
+
         }
     }
 
-    public void frear(){
-        Console.WriteLine("Frear...");
-        if(velocidade > 0){
-            velocidade = velocidade - 5;
-        }
-    }
+    public string DescricaoProduto => $"{this.Nome} {this.Marca} - {this.Preco}";
 
-    public void buzinar(){
-        Console.WriteLine("Bi Bi");
-    }
 }
 
 ```
-
