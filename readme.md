@@ -1,174 +1,124 @@
-1. Modelar uma classe `Conta`, que tenha como atributos uma classe `Titular`, além de informações da conta, como agência, número da conta, saldo e limite, bem como um método que devolva as informações da conta de forma detalhada.
-
-R:
-
-```
+1. Criar um construtor para a classe Titular, que inicialize todas suas propriedades:
+```c#
 class Titular
 {
     public string Nome {get; set;}
     public string Cpf {get; set;}
     public string Endereco {get; set;}
 }
+```
 
+R:
+
+```c#
+
+class Titular
+{
+    public string Nome {get; set;}
+    public string Cpf {get; set;}
+    public string Endereco {get; set;}
+
+    public Titular(string nome, string cpf, string endereco)
+    {
+        Nome = nome;
+        Cpf = cpf;
+        Endereco = endereco;
+    }
+}
+```
+
+2. Criar um construtor para a classe Conta, que inicialize todas suas propriedades:
+
+```c#
 class Conta
 {
     public Titular Titular {get; set;}
     public int Agencia {get; set;}
     public int NumeroDaConta {get; set;}
-    public double Saldo {get; set;}
+    public double Saldo {get;}
     public double Limite {get; set;}
 
     public string Informacoes => $"Conta nº {this.NumeroDaConta}, Agência {this.Agencia}, Titular: {this.Titular.Nome} - Saldo: {this.Saldo}";
+
+    public Conta(Titular titular, Agencia agencia, NumeroDaConta numeroDaConta, Limite limite)
+    {
+        this.Titular = titular;
+        this.Agencia = agencia;
+        this.NumeroDaConta = numeroDaConta;
+        this.Limite = limite;
+        this.Saldo = 0
+    }
 }
 ```
 
-2. Instanciar um objeto do tipo Conta e um do tipo Titular e mostrar as informações de Titular, a partir da Conta.
+3. Instanciar uma Conta e exibir suas informações na tela, utilizando construtores.
+
+R:
+
+```c#
+Titular titular = new Titular("George Harrison", "000.000.000-00", "Rua dos Besouros, Liverpool");
+Conta c = new Conta(titular, 1, 2234, 100000);
+
+Console.WriteLine(c.Informacoes);
+```
+
+4. Desenvolver uma classe que representa um catálogo de jogos, com uma lista de Jogos e métodos para manipular essa lista, bem como um construtor que faça sua inicialização. 
 
 R:
 
 ```
-Titular t = new();
-Conta c = new();
 
-t.Nome = "George Harrison";
-t.Cpf = "000.000.000-00";
-t.Endereco = "Rua dos Besouros - Liverpool";
-
-c.Titular = t;
-c.Agencia = 1;
-c.NumeroDaConta = 2234;
-c.Saldo = 10000000.0;
-c.Limite = 100000.0;
-
-Console.WriteLine("Informações do Titular: ");
-Console.WriteLine($"Nome: {c.Titular.Nome}");
-Console.WriteLine($"CPF: {c.Titular.Cpf}");
-Console.WriteLine($"Endereco: {c.Titular.Endereco}");
-
-```
-
-3. Desenvolver uma classe que represente um estoque de produtos, e que tenha as funcionalidades de adicionar novos produtos, e exibir todos os produtos no estoque.
-
-R:
-
-```
-class Produto
+class Jogo
 {
-    private double preco;
-    private int estoque;
-    public string Nome {get; set;}
-    public string Marca {get; set;}
-    public double Preco {
-        get => preco; 
-        set
-        {
-            if(value > 0)
-                preco = value;
-            else
-                preco = 10;
-        }
+    public string Nome { get; set; }
+    public string Genero { get; set; }
+    public int AnoLancamento { get; set; }
+
+    public Jogo(string nome, string genero, int anoLancamento)
+    {
+        Nome = nome;
+        Genero = genero;
+        AnoLancamento = anoLancamento;
     }
-    
-    public int Estoque {
-        get => estoque; 
-        set 
-        {
-            if(value > 0)
-                estoque = value;
-            else
-                estoque = 0;
-
-        }
-    }
-
-    public string Descricao => $"{this.Nome} {this.Marca} - {this.Preco} - Quantidade: {this.Estoque}";
-
 }
 
-
-class EstoqueDeProdutos
+class CatalogoJogos
 {
-    private List<Produto> Produtos {get; set;} = new List<Produto>();
+    private List<Jogo> Jogos { get; set; }
 
-    public void AdicionarProduto(Produto produto)
+    // Propriedade que retorna se o catálogo está vazio
+    public bool CatalogoVazio => Jogos.Count == 0;
+
+    // Construtor para inicializar o catálogo de jogos vazio
+    public CatalogoJogos()
     {
-        Produtos.Add((produto));
-        Console.WriteLine($"Produto {produto.Nome} adicionado ao estoque");
+        Jogos = new List<Jogo>();
     }
 
-    public void ExibirProdutos()
+    // Método para adicionar um jogo ao catálogo
+    public void AdicionarJogo(string nome, string genero, int anoLancamento)
     {
-        if(Produtos.Count == 0)
+        Jogo novoJogo = new Jogo(nome, genero, anoLancamento);
+        Jogos.Add(novoJogo);
+        Console.WriteLine($"Jogo \"{nome}\" adicionado ao catálogo.");
+    }
+
+    // Método para listar todos os jogos no catálogo
+    public void ListarJogos()
+    {
+        if (CatalogoVazio)
         {
-            Console.WriteLine("Estoque vazio. Nenhum produto disponível");
-        }else
+            Console.WriteLine("O catálogo de jogos está vazio.");
+        }
+        else
         {
-            Console.WriteLine("Lista de produtos no estoque:");
-            foreach(var produto in Produtos){
-                Console.WriteLine(produto.Descricao);
+            Console.WriteLine("Catálogo de Jogos:");
+            foreach (var jogo in Jogos)
+            {
+                Console.WriteLine($"Nome: {jogo.Nome}, Gênero: {jogo.Genero}, Ano de Lançamento: {jogo.AnoLancamento}");
             }
         }
     }
-}
-```
-
-4. Modelar o sistema de uma escola. Crie classes para Aluno, Professor e Disciplina. A classe Aluno deve ter informações como nome, idade e notas. A classe Professor deve ter informações sobre nome e disciplinas lecionadas. A classe Disciplina deve armazenar o nome da disciplina e a lista de alunos matriculados.
-
-R: 
-
-```
-class Aluno
-{
-    public string Nome { get; set; }
-    public int Idade { get; set; }
-    public List<double> Notas { get; set; } = new List<double>();
-}
-
-class Professor
-{
-    public string Nome { get; set; }
-    public List<string> DisciplinasLecionadas { get; set; } = new List<string>();
-}
-
-class Disciplina
-{
-    public string NomeDisciplina { get; set; }
-    public List<Aluno> AlunosMatriculados { get; set; } = new List<Aluno>();
-}
-```
-
-5. Modelar um sistema para um restaurante com classes como Restaurante, Mesa, Pedido e Cardapio. A classe Restaurante deve ter mesas que podem ser reservadas e um cardápio com itens que podem ser pedidos. Os pedidos podem estar associados a uma mesa.
-
-R: 
-
-```
-class ProdutoRestaurante
-{
-    public string Nome { get; set; }
-    public decimal Preco { get; set; }
-}
-
-class Mesa
-{
-    public int Numero { get; set; }
-    public List<Pedido> Pedidos { get; set; } = new List<Pedido>();
-}
-
-class Pedido
-{
-    public ProdutoRestaurante Produto { get; set; }
-    public int Quantidade { get; set; }
-}
-
-class Cardapio
-{
-    public List<ProdutoRestaurante> Itens { get; set; } = new List<ProdutoRestaurante>();
-}
-
-class Restaurante
-{
-    public List<Mesa> Mesas { get; set; } = new List<Mesa>();
-    public Cardapio Cardapio { get; set; } = new Cardapio();
 }
 
 ```
