@@ -66,7 +66,7 @@ Console.WriteLine(c.Informacoes);
 
 R:
 
-```
+```c#
 
 class Jogo
 {
