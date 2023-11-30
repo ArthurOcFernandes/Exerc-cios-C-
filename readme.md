@@ -2,7 +2,7 @@
 
 R:
 
-```
+```c#
 class Titular
 {
     public string Nome {get; set;}
@@ -26,7 +26,7 @@ class Conta
 
 R:
 
-```
+```c#
 Titular t = new();
 Conta c = new();
 
@@ -51,7 +51,7 @@ Console.WriteLine($"Endereco: {c.Titular.Endereco}");
 
 R:
 
-```
+```c#
 class Produto
 {
     private double preco;
@@ -116,7 +116,7 @@ class EstoqueDeProdutos
 
 R: 
 
-```
+```c#
 class Aluno
 {
     public string Nome { get; set; }
@@ -141,7 +141,7 @@ class Disciplina
 
 R: 
 
-```
+```c#
 class ProdutoRestaurante
 {
     public string Nome { get; set; }
