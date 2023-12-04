@@ -1,122 +1,216 @@
-1. Criar um construtor para a classe Titular, que inicialize todas suas propriedades:
-```c#
-class Titular
-{
-    public string Nome {get; set;}
-    public string Cpf {get; set;}
-    public string Endereco {get; set;}
-}
-```
+1. Criar uma classe que representa um filme, com dados como seu titulo, duração e elenco. Após isso, colocá-la no namespace **Alura.Filmes**. 
 
 R:
 
 ```c#
-
-class Titular
+namespace Alura.Filmes
 {
-    public string Nome {get; set;}
-    public string Cpf {get; set;}
-    public string Endereco {get; set;}
-
-    public Titular(string nome, string cpf, string endereco)
+    class Filme
     {
-        Nome = nome;
-        Cpf = cpf;
-        Endereco = endereco;
-    }
-}
-```
+        private List<string> Elenco { get; set; }
+        public string Titulo { get; set; }
+        public int Duracao { get; set; }
 
-2. Criar um construtor para a classe Conta, que inicialize todas suas propriedades:
-
-```c#
-class Conta
-{
-    public Titular Titular {get; set;}
-    public int Agencia {get; set;}
-    public int NumeroDaConta {get; set;}
-    public double Saldo {get;}
-    public double Limite {get; set;}
-
-    public string Informacoes => $"Conta nº {this.NumeroDaConta}, Agência {this.Agencia}, Titular: {this.Titular.Nome} - Saldo: {this.Saldo}";
-
-    public Conta(Titular titular, Agencia agencia, NumeroDaConta numeroDaConta, Limite limite)
-    {
-        this.Titular = titular;
-        this.Agencia = agencia;
-        this.NumeroDaConta = numeroDaConta;
-        this.Limite = limite;
-        this.Saldo = 0
-    }
-}
-```
-
-3. Instanciar uma Conta e exibir suas informações na tela, utilizando construtores.
-
-R:
-
-```c#
-Titular titular = new Titular("George Harrison", "000.000.000-00", "Rua dos Besouros, Liverpool");
-Conta c = new Conta(titular, 1, 2234, 100000);
-
-Console.WriteLine(c.Informacoes);
-```
-
-4. Desenvolver uma classe que representa um catálogo de jogos, com uma lista de Jogos e métodos para manipular essa lista, bem como um construtor que faça sua inicialização. 
-
-R:
-
-```
-
-class Jogo
-{
-    public string Nome { get; set; }
-    public string Genero { get; set; }
-    public int AnoLancamento { get; set; }
-
-    public Jogo(string nome, string genero, int anoLancamento)
-    {
-        Nome = nome;
-        Genero = genero;
-        AnoLancamento = anoLancamento;
-    }
-}
-
-class CatalogoJogos
-{
-    private List<Jogo> Jogos { get; set; }
-
-    // Propriedade que retorna se o catálogo está vazio
-    public bool CatalogoVazio => Jogos.Count == 0;
-
-    // Construtor para inicializar o catálogo de jogos vazio
-    public CatalogoJogos()
-    {
-        Jogos = new List<Jogo>();
-    }
-
-    // Método para adicionar um jogo ao catálogo
-    public void AdicionarJogo(string nome, string genero, int anoLancamento)
-    {
-        Jogo novoJogo = new Jogo(nome, genero, anoLancamento);
-        Jogos.Add(novoJogo);
-        Console.WriteLine($"Jogo \"{nome}\" adicionado ao catálogo.");
-    }
-
-    // Método para listar todos os jogos no catálogo
-    public void ListarJogos()
-    {
-        if (CatalogoVazio)
+        public Filme(string titulo, int duracao, List<string>? elenco)
         {
-            Console.WriteLine("O catálogo de jogos está vazio.");
+            if (elenco == null)
+            {
+                Elenco = new List<string>();
+            }
+            else
+            {
+                Elenco = elenco;
+            }
+            
+            Titulo = titulo;
+            Duracao = duracao;
+        }
+
+        public void AdicionarElenco(string ator)
+        {
+            Elenco.Add(ator);
+            Console.WriteLine($"{ator} adicionado/a ao elenco.");
+        }
+
+        public void ListarElenco()
+        {
+            if (Elenco.Count == 0)
+            {
+                Console.WriteLine("Elenco vazio.");
+            }
+            else
+            {
+                Console.WriteLine("Elenco... ");
+                foreach (var ator in Elenco)
+                {
+                    Console.WriteLine(ator);
+                }
+            }
+        }
+    }
+}
+```
+
+2. Criar um programa `Program.cs`, instanciar seus 5 filmes favoritos, guardá-los em uma lista e mostrar as suas informações no console.
+
+```c#
+using Alura.Filmes;
+
+Filme filme = new Filme("Um sonho de liberdade", 142, new List<string>() {"Tim Robbins", "Morgan Freeman" });
+Filme filme2 = new Filme("O poderoso chefão", 175, new List<string>() { "Marlon Brando", "Al Pacino", "Talia Shire"});
+Filme filme3 = new Filme("Batman - O Cavaleiro das Trevas", 152, new List<string>() {"Christian Bale", "Heath Ledger", "Maggie Gyleenhaal" });
+Filme filme4 = new Filme("Senhor dos Anéis - O Retorno do Rei", 201, new List<string>() {"Elijah Wood", "Ian McKellen", "Viggo Mortensen" });
+Filme filme5 = new Filme("Green Book - O Guia", 130, new List<String>() { "Viggo Mortensen", "Mahershala Ali" });
+
+List<Filme> meusFilmesFavoritos =  new List<Filme>();
+meusFilmesFavoritos.Add(filme);
+meusFilmesFavoritos.Add(filme2);
+meusFilmesFavoritos.Add(filme3);
+meusFilmesFavoritos.Add(filme4);
+meusFilmesFavoritos.Add(filme5);
+
+foreach(Filme f in meusFilmesFavoritos)
+{
+    Console.WriteLine($"Filme: {f.Titulo}");
+    Console.WriteLine($"Duracao: {f.Duracao}");
+    f.ListarElenco();
+    Console.WriteLine();
+}
+```
+
+3. Criar uma classe `Artista`, que representa uma pessoa que atua em filmes, no namespace `Alura.Filmes`. A classe deve conter atributos como o nome, idade e uma lista de filmes onde o artista atuou.
+
+```c#
+namespace Alura.Filmes
+{
+   
+    public class Artista
+    {
+        public string Nome { get; set; }
+        public int Idade { get; set; }
+        public List<Filme> FilmesAtuados { get; set; }
+        public int QuantidadeDeFilmes => FilmesAtuados.Count
+       
+        public Artista(string nome, int idade)
+        {
+            Nome = nome;
+            Idade = idade;
+            FilmesAtuados = new List<Filme>(); 
+        }
+
+
+        public void AdicionarFilme(string filme)
+        {
+            FilmesAtuados.Add(filme);
+        }
+
+        public void MostrarFilmesAtuados(){
+
+            if(this.FilmesAtuados.Count == 0){
+                Console.WriteLine($"Nenhum filme encontrado na base para {this.Nome}");
+                return;
+            }
+
+            Console.WriteLine($"Filmes de {this.Nome}...");
+            foreach(var filme in FilmesAtuados){
+                Console.WriteLine($"Filme: {filme.Titulo}");
+            }
+        }
+    }
+}
+```
+
+4. Modificar as classes `Artista` e `Filme` do namespace `Alura.Filmes` para que elas sejam consistentes uma com a outra, ou seja, sempre que for adicionado um artista a um filme, terá de ser adicionado também o filme à lista de filmes do artista.
+
+```c#
+
+class Filme
+{
+    public List<Artista> Elenco { get; set; }
+    public string Titulo { get; set; }
+    public int Duracao { get; set; }
+
+    public Filme(string titulo, int duracao, List<Artista> elenco)
+    {
+        if (elenco == null)
+        {
+            Elenco = new List<Artista>();
         }
         else
         {
-            Console.WriteLine("Catálogo de Jogos:");
-            foreach (var jogo in Jogos)
+            Elenco = elenco;
+            foreach (var artista in Elenco)
             {
-                Console.WriteLine($"Nome: {jogo.Nome}, Gênero: {jogo.Genero}, Ano de Lançamento: {jogo.AnoLancamento}");
+                artista.AdicionarFilme(this);
             }
+        }
+
+        Titulo = titulo;
+        Duracao = duracao;
+    }
+
+    public void AdicionarElenco(Artista artista)
+    {
+        Elenco.Add(artista);
+        if (!artista.FilmesAtuados.Contains(this))
+        {
+            artista.AdicionarFilme(this);
+        }
+        Console.WriteLine($"{artista} adicionado/a ao elenco.");
+    }
+
+    public void ListarElenco()
+    {
+        if (Elenco.Count == 0)
+        {
+            Console.WriteLine("Elenco vazio.");
+        }
+        else
+        {
+            Console.WriteLine("Elenco... ");
+            foreach (var artista in Elenco)
+            {
+                Console.WriteLine(artista.Nome);
+            }
+        }
+    }
+}
+
+class Artista
+{
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public List<Filme> FilmesAtuados { get; set; }
+    public int QuantidadeDeFilmes => FilmesAtuados.Count;
+
+
+    public Artista(string nome, int idade)
+    {
+        Nome = nome;
+        Idade = idade;
+        FilmesAtuados = new List<Filme>();
+    }
+
+    public void AdicionarFilme(Filme filme)
+    {
+        FilmesAtuados.Add(filme);
+        if(!filme.Elenco.Contains(this)) filme.AdicionarElenco(this);
+    }
+
+
+    public void MostrarFilmesAtuados()
+    {
+
+        if (this.FilmesAtuados.Count == 0)
+        {
+            Console.WriteLine($"Nenhum filme encontrado na base para {this.Nome}");
+            return;
+        }
+
+        Console.WriteLine($"Filmes de {this.Nome}...");
+        foreach (var filme in FilmesAtuados)
+        {
+            Console.WriteLine($"Filme: {filme.Titulo}");
         }
     }
 }
