@@ -1,227 +1,185 @@
-1. Criar uma hierarquia de classes representando formas geométricas, como Quadrado, Círculo e Triângulo. Utilize herança para criar uma classe base chamada FormaGeometrica, que contenha métodos para calcular a área e o perímetro de uma forma.
+1. Criar uma interface chamada IForma que declare métodos para calcular a área e o perímetro de uma forma geométrica. Implemente esta interface em duas classes: Circulo e Retangulo.
 
 R:
 
 ```c#
-abstract class FormaGeometrica
+
+public interface IForma
 {
-    public abstract double CalcularArea();
-    public abstract double CalcularPerimetro();
+    double CalcularArea();
+    double CalcularPerimetro();
 }
 
-class Quadrado : FormaGeometrica
-{
-    public double Lado { get; set; }
-
-    public override double CalcularArea()
-    {
-        return Lado * Lado;
-    }
-
-    public override double CalcularPerimetro()
-    {
-        return 4 * Lado;
-    }
-}
-
-class Circulo : FormaGeometrica
+public class Circulo : IForma
 {
     public double Raio { get; set; }
 
-    public override double CalcularArea()
+    public double CalcularArea()
     {
-        return Math.PI * Raio * Raio;
+        return Math.PI * Math.Pow(Raio, 2);
     }
 
-    public override double CalcularPerimetro()
+    public double CalcularPerimetro()
     {
         return 2 * Math.PI * Raio;
     }
 }
 
-class Triangulo : FormaGeometrica
+public class Retangulo : IForma
 {
-    public double Base { get; set; }
-    public double Altura { get; set; }
+    public double Comprimento { get; set; }
+    public double Largura { get; set; }
 
-    public override double CalcularArea()
+    public double CalcularArea()
     {
-        return 0.5 * Base * Altura;
+        return Comprimento * Largura;
     }
 
-    public override double CalcularPerimetro()
+    public double CalcularPerimetro()
     {
-        // Considerando um triângulo genérico
-        return Base + Altura + Math.Sqrt(Base * Base + Altura * Altura);
+        return 2 * (Comprimento + Largura);
     }
 }
 
+
 ```
 
-2. Crie uma hierarquia de classes representando funcionários de uma empresa. Utilize herança para criar classes como Gerente, Programador e Analista. Cada classe deve ter propriedades específicas, além das propriedades comuns a todos os funcionários, como Nome e Salário.
+2. Criar duas interfaces adicionais, IPilotavel e IVoavel. Implemente essas interfaces na classe Veiculo.
 
 R: 
 
 ```c#
+public interface IPilotavel
+{
+    void Pilotar();
+}
 
-class Funcionario
+public interface IVoavel
+{
+    void Voar();
+}
+
+public class Veiculo : IPilotavel, IVoavel
+{
+    public void Pilotar()
+    {
+        Console.WriteLine("Veículo está pilotando");
+    }
+
+    public void Voar()
+    {
+        Console.WriteLine("Veículo está voando");
+    }
+}
+
+```
+
+3. Criar uma interface chamada IPagavel com um método CalcularPagamento. Implemente essa interface em duas classes, Produto e Servico. O método CalcularPagamento deve retornar o valor total a ser pago, levando em consideração a quantidade para produtos e a taxa horária para serviços.
+
+R:
+
+```c#
+
+public interface IPagavel
+{
+    decimal CalcularPagamento();
+}
+
+public class Produto : IPagavel
 {
     public string Nome { get; set; }
-    public double Salario { get; set; }
-}
+    public decimal PrecoUnitario { get; set; }
+    public int Quantidade { get; set; }
 
-class Gerente : Funcionario
-{
-    public string Setor { get; set; }
-}
-
-class Programador : Funcionario
-{
-    public string LinguagemDeProgramacao { get; set; }
-}
-
-class Analista : Funcionario
-{
-    public string AreaDeAtuacao { get; set; }
-}
-
-```
-
-3. Criar uma hierarquia de classes representando contas bancárias, como ContaCorrente e ContaPoupanca. Utilize herança e o conceito de métodos virtuais para implementar um método CalcularSaldo que retorne o saldo atual da conta.
-
-R:
-
-```c#
-
-class ContaBancaria
-{
-    protected double Saldo { get; set; }
-
-    public virtual void Depositar(double valor)
+    public decimal CalcularPagamento()
     {
-        Saldo += valor;
-    }
-
-    public virtual void Sacar(double valor)
-    {
-        Saldo -= valor;
-    }
-
-    public virtual double CalcularSaldo()
-    {
-        return Saldo;
+        return PrecoUnitario * Quantidade;
     }
 }
 
-class ContaCorrente : ContaBancaria
+public class Servico : IPagavel
 {
-    private double TaxaManutencao { get; set; }
+    public string Nome { get; set; }
+    public decimal TaxaHoraria { get; set; }
+    public int HorasTrabalhadas { get; set; }
 
-    public override void Sacar(double valor)
+    public decimal CalcularPagamento()
     {
-        base.Sacar(valor + TaxaManutencao);
-    }
-}
-
-class ContaPoupanca : ContaBancaria
-{
-    private double TaxaRendimento { get; set; }
-
-    public override double CalcularSaldo()
-    {
-        return base.CalcularSaldo() * (1 + TaxaRendimento);
-    }
-}
-
-```
-
-4. Criar uma hierarquia de classes representando animais, como Mamifero, Ave e Peixe. Utilize herança e o conceito de métodos virtuais para implementar um método EmitirSom que represente o som característico de cada tipo de animal.
-
-R:
-
-```c#
-
-class Animal
-{
-    public virtual string EmitirSom()
-    {
-        return "Som genérico de animal";
-    }
-}
-
-class Mamifero : Animal
-{
-    public override string EmitirSom()
-    {
-        return "Som de mamífero";
-    }
-}
-
-class Ave : Animal
-{
-    public override string EmitirSom()
-    {
-        return "Som de ave";
-    }
-}
-
-class Peixe : Animal
-{
-    public override string EmitirSom()
-    {
-        return "Som de peixe";
+        return TaxaHoraria * HorasTrabalhadas;
     }
 }
 
 
 ```
 
-5. Criar uma hierarquia de classes representando produtos eletrônicos, como Smartphone, Tablet e Laptop. Utilize herança e o conceito de métodos virtuais para implementar um método ExibirInformacoes que retorne informações específicas de cada produto.
-
-R:
+4. Criar uma interface chamada INotificavel com um método EnviarNotificacao. Implemente essa interface em duas classes, Email e SMS. O método EnviarNotificacao deve exibir mensagens diferentes para cada tipo de notificação.
 
 ```c#
-
-class ProdutoEletronico
+public interface INotificavel
 {
-    public string Modelo { get; set; }
-    public double Preco { get; set; }
+    void EnviarNotificacao();
+}
 
-    public virtual string ExibirInformacoes()
+public class Email : INotificavel
+{
+    public string EnderecoEmail { get; set; }
+
+    public void EnviarNotificacao()
     {
-        return $"Modelo: {Modelo}, Preço: {Preco:C}";
+        Console.WriteLine($"Enviando e-mail para {EnderecoEmail}: Notificação importante!");
     }
 }
 
-class Smartphone : ProdutoEletronico
+public class SMS : INotificavel
 {
-    public string SistemaOperacional { get; set; }
+    public string NumeroTelefone { get; set; }
 
-    public override string ExibirInformacoes()
+    public void EnviarNotificacao()
     {
-        return $"{base.ExibirInformacoes()}, SO: {SistemaOperacional}";
+        Console.WriteLine($"Enviando SMS para {NumeroTelefone}: Notificação importante!");
     }
 }
 
-class Tablet : ProdutoEletronico
-{
-    public string TipoTela { get; set; }
+```
 
-    public override string ExibirInformacoes()
+5. Criar uma interface chamada IArmazenavel com métodos Salvar e Recuperar. Implemente essa interface em duas classes, Arquivo e BancoDeDados. Os métodos Salvar e Recuperar devem exibir mensagens simulando a ação de salvar e recuperar dados.
+
+R: 
+
+```c#
+public interface IArmazenavel
+{
+    void Salvar();
+    void Recuperar();
+}
+
+public class Arquivo : IArmazenavel
+{
+    public string NomeArquivo { get; set; }
+
+    public void Salvar()
     {
-        return $"{base.ExibirInformacoes()}, Tela: {TipoTela}";
+        Console.WriteLine($"Salvando dados no arquivo {NomeArquivo}.");
+    }
+
+    public void Recuperar()
+    {
+        Console.WriteLine($"Recuperando dados do arquivo {NomeArquivo}.");
     }
 }
 
-class Laptop : ProdutoEletronico
+public class BancoDeDados : IArmazenavel
 {
-    public string Processador { get; set; }
+    public string NomeBanco { get; set; }
 
-    public override string ExibirInformacoes()
+    public void Salvar()
     {
-        return $"{base.ExibirInformacoes()}, Processador: {Processador}";
+        Console.WriteLine($"Salvando dados no banco de dados {NomeBanco}.");
+    }
+
+    public void Recuperar()
+    {
+        Console.WriteLine($"Recuperando dados do banco de dados {NomeBanco}.");
     }
 }
-
-
 ```
