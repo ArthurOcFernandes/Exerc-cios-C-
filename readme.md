@@ -1,217 +1,243 @@
-1. Criar uma classe que representa um filme, com dados como seu titulo, duração e elenco. Após isso, colocá-la no namespace **Alura.Filmes**. 
+1. Modelar um Pet Shop com classes como Pet, Dono, Consulta e médico.
 
 R:
 
 ```c#
-namespace Alura.Filmes
-{
-    class Filme
-    {
-        private List<string> Elenco { get; set; }
-        public string Titulo { get; set; }
-        public int Duracao { get; set; }
-
-        public Filme(string titulo, int duracao, List<string>? elenco)
-        {
-            if (elenco == null)
-            {
-                Elenco = new List<string>();
-            }
-            else
-            {
-                Elenco = elenco;
-            }
-            
-            Titulo = titulo;
-            Duracao = duracao;
-        }
-
-        public void AdicionarElenco(string ator)
-        {
-            Elenco.Add(ator);
-            Console.WriteLine($"{ator} adicionado/a ao elenco.");
-        }
-
-        public void ListarElenco()
-        {
-            if (Elenco.Count == 0)
-            {
-                Console.WriteLine("Elenco vazio.");
-            }
-            else
-            {
-                Console.WriteLine("Elenco... ");
-                foreach (var ator in Elenco)
-                {
-                    Console.WriteLine(ator);
-                }
-            }
-        }
-    }
-}
-```
-
-2. Criar um programa `Program.cs`, instanciar seus 5 filmes favoritos, guardá-los em uma lista e mostrar as suas informações no console.
-
-```c#
-using Alura.Filmes;
-
-Filme filme = new Filme("Um sonho de liberdade", 142, new List<string>() {"Tim Robbins", "Morgan Freeman" });
-Filme filme2 = new Filme("O poderoso chefão", 175, new List<string>() { "Marlon Brando", "Al Pacino", "Talia Shire"});
-Filme filme3 = new Filme("Batman - O Cavaleiro das Trevas", 152, new List<string>() {"Christian Bale", "Heath Ledger", "Maggie Gyleenhaal" });
-Filme filme4 = new Filme("Senhor dos Anéis - O Retorno do Rei", 201, new List<string>() {"Elijah Wood", "Ian McKellen", "Viggo Mortensen" });
-Filme filme5 = new Filme("Green Book - O Guia", 130, new List<String>() { "Viggo Mortensen", "Mahershala Ali" });
-
-List<Filme> meusFilmesFavoritos =  new List<Filme>();
-meusFilmesFavoritos.Add(filme);
-meusFilmesFavoritos.Add(filme2);
-meusFilmesFavoritos.Add(filme3);
-meusFilmesFavoritos.Add(filme4);
-meusFilmesFavoritos.Add(filme5);
-
-foreach(Filme f in meusFilmesFavoritos)
-{
-    Console.WriteLine($"Filme: {f.Titulo}");
-    Console.WriteLine($"Duracao: {f.Duracao}");
-    f.ListarElenco();
-    Console.WriteLine();
-}
-```
-
-3. Criar uma classe `Artista`, que representa uma pessoa que atua em filmes, no namespace `Alura.Filmes`. A classe deve conter atributos como o nome, idade e uma lista de filmes onde o artista atuou.
-
-```c#
-namespace Alura.Filmes
-{
-   
-    public class Artista
-    {
-        public string Nome { get; set; }
-        public int Idade { get; set; }
-        public List<Filme> FilmesAtuados { get; set; }
-        public int QuantidadeDeFilmes => FilmesAtuados.Count
-       
-        public Artista(string nome, int idade)
-        {
-            Nome = nome;
-            Idade = idade;
-            FilmesAtuados = new List<Filme>(); 
-        }
-
-
-        public void AdicionarFilme(string filme)
-        {
-            FilmesAtuados.Add(filme);
-        }
-
-        public void MostrarFilmesAtuados(){
-
-            if(this.FilmesAtuados.Count == 0){
-                Console.WriteLine($"Nenhum filme encontrado na base para {this.Nome}");
-                return;
-            }
-
-            Console.WriteLine($"Filmes de {this.Nome}...");
-            foreach(var filme in FilmesAtuados){
-                Console.WriteLine($"Filme: {filme.Titulo}");
-            }
-        }
-    }
-}
-```
-
-4. Modificar as classes `Artista` e `Filme` do namespace `Alura.Filmes` para que elas sejam consistentes uma com a outra, ou seja, sempre que for adicionado um artista a um filme, terá de ser adicionado também o filme à lista de filmes do artista.
-
-```c#
-
-class Filme
-{
-    public List<Artista> Elenco { get; set; }
-    public string Titulo { get; set; }
-    public int Duracao { get; set; }
-
-    public Filme(string titulo, int duracao, List<Artista> elenco)
-    {
-        if (elenco == null)
-        {
-            Elenco = new List<Artista>();
-        }
-        else
-        {
-            Elenco = elenco;
-            foreach (var artista in Elenco)
-            {
-                artista.AdicionarFilme(this);
-            }
-        }
-
-        Titulo = titulo;
-        Duracao = duracao;
-    }
-
-    public void AdicionarElenco(Artista artista)
-    {
-        Elenco.Add(artista);
-        if (!artista.FilmesAtuados.Contains(this))
-        {
-            artista.AdicionarFilme(this);
-        }
-        Console.WriteLine($"{artista} adicionado/a ao elenco.");
-    }
-
-    public void ListarElenco()
-    {
-        if (Elenco.Count == 0)
-        {
-            Console.WriteLine("Elenco vazio.");
-        }
-        else
-        {
-            Console.WriteLine("Elenco... ");
-            foreach (var artista in Elenco)
-            {
-                Console.WriteLine(artista.Nome);
-            }
-        }
-    }
-}
-
-class Artista
+public class Pet
 {
     public string Nome { get; set; }
     public int Idade { get; set; }
-    public List<Filme> FilmesAtuados { get; set; }
-    public int QuantidadeDeFilmes => FilmesAtuados.Count;
+    public string Especie { get; set; }
 
-
-    public Artista(string nome, int idade)
+    public Pet(string nome, int idade, string especie)
     {
         Nome = nome;
         Idade = idade;
-        FilmesAtuados = new List<Filme>();
+        Especie = especie;
+    }
+}
+
+
+public class Dono
+{
+    public string Nome { get; set; }
+    public string Contato { get; set; }
+
+    public Dono(string nome, string contato)
+    {
+        Nome = nome;
+        Contato = contato;
+    }
+}
+
+public class Medico
+{
+    public string Nome { get; set; }
+    public string Especialidade { get; set; }
+
+    public Medico(string nome, string especialidade)
+    {
+        Nome = nome;
+        Especialidade = especialidade;
+    }
+}
+
+public class Consulta
+{
+    public Pet Animal { get; set; }
+    public Dono DonoAnimal { get; set; }
+    public Medico Veterinario { get; set; }
+    public string DataConsulta { get; set; }
+
+    public Consulta(Pet animal, Dono dono, Medico veterinario, string dataConsulta)
+    {
+        Animal = animal;
+        DonoAnimal = dono;
+        Veterinario = veterinario;
+        DataConsulta = dataConsulta;
+    }
+}
+
+```
+
+2. Modelar o funcionamento de uma oficina automobilistica.
+
+R:
+
+```c#
+
+public class Veiculo
+{
+    public string Marca { get; set; }
+    public string Modelo { get; set; }
+    public int Ano { get; set; }
+    public string Placa { get; set; }
+
+    public Veiculo(string marca, string modelo, int ano, string placa)
+    {
+        Marca = marca;
+        Modelo = modelo;
+        Ano = ano;
+        Placa = placa;
+    }
+}
+
+public class Cliente
+{
+    public string Nome { get; set; }
+    public string Contato { get; set; }
+
+    public Cliente(string nome, string contato)
+    {
+        Nome = nome;
+        Contato = contato;
+    }
+}
+
+
+public class Mecanico
+{
+    public string Nome { get; set; }
+    public string Especialidade { get; set; }
+
+    public Mecanico(string nome, string especialidade)
+    {
+        Nome = nome;
+        Especialidade = especialidade;
+    }
+}
+
+
+public class Oficina
+{
+    private List<Veiculo> veiculosNaOficina;
+
+    public Oficina()
+    {
+        veiculosNaOficina = new List<Veiculo>();
     }
 
-    public void AdicionarFilme(Filme filme)
+    public void AgendarServico(Veiculo veiculo, Cliente cliente, Mecanico mecanico, string dataAgendamento)
     {
-        FilmesAtuados.Add(filme);
-        if(!filme.Elenco.Contains(this)) filme.AdicionarElenco(this);
+        veiculosNaOficina.Add(veiculo);
+
+        // Lógica para agendar o serviço (pode ser expandida conforme necessário)
+        Console.WriteLine($"Serviço agendado para {veiculo.Placa} em {dataAgendamento} com o mecânico {mecanico.Nome}.");
     }
 
-
-    public void MostrarFilmesAtuados()
+    public void RealizarServico(Veiculo veiculo, Mecanico mecanico)
     {
-
-        if (this.FilmesAtuados.Count == 0)
+        if (veiculosNaOficina.Contains(veiculo))
         {
-            Console.WriteLine($"Nenhum filme encontrado na base para {this.Nome}");
-            return;
+           
+            Console.WriteLine($"Serviço realizado em {veiculo.Placa} pelo mecânico {mecanico.Nome}.");
+            veiculosNaOficina.Remove(veiculo);
+        }
+        else
+        {
+            Console.WriteLine($"O veículo {veiculo.Placa} não está na oficina para realizar o serviço.");
+        }
+    }
+}
+
+```
+
+3. Criar um programa `Program.cs` e simular o funcionamento do programa.
+
+R:
+
+```c#
+class Program
+{
+    static void Main()
+    {
+        // Criar instâncias de Veiculo, Cliente, Mecanico e Oficina
+        Veiculo meuCarro = new Veiculo("Chevrolet", "Cruze", 2020, "ABC1234");
+        Cliente cliente = new Cliente("Carlos", "987654321");
+        Mecanico mecanico = new Mecanico("Mário", "Mecânica Geral");
+        Oficina oficina = new Oficina();
+
+        // Agendar e realizar um serviço na oficina
+        oficina.AgendarServico(meuCarro, cliente, mecanico, "2023-12-18");
+        oficina.RealizarServico(meuCarro, mecanico);
+    }
+}
+```
+
+
+4. Escrever um programa que funcione como uma calculadora, que pode realizar as 4 operações básicas, além de calcular raiz quadrada e potências. O usuario deve entrar com dois números e um simbolo que represente a operação a ser feita. 
+
+R:
+
+```c#
+public class Calculadora
+{
+    public static double Calcular(double numero1, double numero2, char operacao)
+    {
+        double resultado = 0;
+
+        switch (operacao)
+        {
+            case '+':
+                resultado = Somar(numero1, numero2);
+                break;
+            case '-':
+                resultado = Subtrair(numero1, numero2);
+                break;
+            case '*':
+                resultado = Multiplicar(numero1, numero2);
+                break;
+            case '/':
+                resultado = Dividir(numero1, numero2);
+                break;
+            case '^':
+                resultado = Potencia(numero1, numero2);
+                break;
+            case 'r':
+                resultado = RaizQuadrada(numero1);
+                break;
+            default:
+                Console.WriteLine("Operação inválida.");
+                break;
         }
 
-        Console.WriteLine($"Filmes de {this.Nome}...");
-        foreach (var filme in FilmesAtuados)
+        return resultado;
+    }
+
+    private static double Somar(double a, double b)
+    {
+        return a + b;
+    }
+
+    private static double Subtrair(double a, double b)
+    {
+        return a - b;
+    }
+
+    private static double Multiplicar(double a, double b)
+    {
+        return a * b;
+    }
+
+    private static double Dividir(double a, double b)
+    {
+        if (b != 0)
+            return a / b;
+        else
         {
-            Console.WriteLine($"Filme: {filme.Titulo}");
+            Console.WriteLine("Erro: Divisão por zero.");
+            return 0;
         }
+    }
+
+    private static double Potencia(double a, double b)
+    {
+        return Math.Pow(a, b);
+    }
+
+    private static double RaizQuadrada(double a)
+    {
+        return Math.Sqrt(a);
     }
 }
 
