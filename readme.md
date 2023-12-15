@@ -1,244 +1,227 @@
-1. Modelar um Pet Shop com classes como Pet, Dono, Consulta e médico.
+1. Criar uma hierarquia de classes representando formas geométricas, como Quadrado, Círculo e Triângulo. Utilize herança para criar uma classe base chamada FormaGeometrica, que contenha métodos para calcular a área e o perímetro de uma forma.
 
 R:
 
 ```c#
-public class Pet
+abstract class FormaGeometrica
 {
-    public string Nome { get; set; }
-    public int Idade { get; set; }
-    public string Especie { get; set; }
+    public abstract double CalcularArea();
+    public abstract double CalcularPerimetro();
+}
 
-    public Pet(string nome, int idade, string especie)
+class Quadrado : FormaGeometrica
+{
+    public double Lado { get; set; }
+
+    public override double CalcularArea()
     {
-        Nome = nome;
-        Idade = idade;
-        Especie = especie;
+        return Lado * Lado;
+    }
+
+    public override double CalcularPerimetro()
+    {
+        return 4 * Lado;
     }
 }
 
-
-public class Dono
+class Circulo : FormaGeometrica
 {
-    public string Nome { get; set; }
-    public string Contato { get; set; }
+    public double Raio { get; set; }
 
-    public Dono(string nome, string contato)
+    public override double CalcularArea()
     {
-        Nome = nome;
-        Contato = contato;
+        return Math.PI * Raio * Raio;
+    }
+
+    public override double CalcularPerimetro()
+    {
+        return 2 * Math.PI * Raio;
     }
 }
 
-public class Medico
+class Triangulo : FormaGeometrica
 {
-    public string Nome { get; set; }
-    public string Especialidade { get; set; }
+    public double Base { get; set; }
+    public double Altura { get; set; }
 
-    public Medico(string nome, string especialidade)
+    public override double CalcularArea()
     {
-        Nome = nome;
-        Especialidade = especialidade;
+        return 0.5 * Base * Altura;
     }
-}
 
-public class Consulta
-{
-    public Pet Animal { get; set; }
-    public Dono DonoAnimal { get; set; }
-    public Medico Veterinario { get; set; }
-    public string DataConsulta { get; set; }
-
-    public Consulta(Pet animal, Dono dono, Medico veterinario, string dataConsulta)
+    public override double CalcularPerimetro()
     {
-        Animal = animal;
-        DonoAnimal = dono;
-        Veterinario = veterinario;
-        DataConsulta = dataConsulta;
+        // Considerando um triângulo genérico
+        return Base + Altura + Math.Sqrt(Base * Base + Altura * Altura);
     }
 }
 
 ```
 
-2. Modelar o funcionamento de uma oficina automobilistica.
+2. Crie uma hierarquia de classes representando funcionários de uma empresa. Utilize herança para criar classes como Gerente, Programador e Analista. Cada classe deve ter propriedades específicas, além das propriedades comuns a todos os funcionários, como Nome e Salário.
+
+R: 
+
+```c#
+
+class Funcionario
+{
+    public string Nome { get; set; }
+    public double Salario { get; set; }
+}
+
+class Gerente : Funcionario
+{
+    public string Setor { get; set; }
+}
+
+class Programador : Funcionario
+{
+    public string LinguagemDeProgramacao { get; set; }
+}
+
+class Analista : Funcionario
+{
+    public string AreaDeAtuacao { get; set; }
+}
+
+```
+
+3. Criar uma hierarquia de classes representando contas bancárias, como ContaCorrente e ContaPoupanca. Utilize herança e o conceito de métodos virtuais para implementar um método CalcularSaldo que retorne o saldo atual da conta.
 
 R:
 
 ```c#
 
-public class Veiculo
+class ContaBancaria
 {
-    public string Marca { get; set; }
+    protected double Saldo { get; set; }
+
+    public virtual void Depositar(double valor)
+    {
+        Saldo += valor;
+    }
+
+    public virtual void Sacar(double valor)
+    {
+        Saldo -= valor;
+    }
+
+    public virtual double CalcularSaldo()
+    {
+        return Saldo;
+    }
+}
+
+class ContaCorrente : ContaBancaria
+{
+    private double TaxaManutencao { get; set; }
+
+    public override void Sacar(double valor)
+    {
+        base.Sacar(valor + TaxaManutencao);
+    }
+}
+
+class ContaPoupanca : ContaBancaria
+{
+    private double TaxaRendimento { get; set; }
+
+    public override double CalcularSaldo()
+    {
+        return base.CalcularSaldo() * (1 + TaxaRendimento);
+    }
+}
+
+```
+
+4. Criar uma hierarquia de classes representando animais, como Mamifero, Ave e Peixe. Utilize herança e o conceito de métodos virtuais para implementar um método EmitirSom que represente o som característico de cada tipo de animal.
+
+R:
+
+```c#
+
+class Animal
+{
+    public virtual string EmitirSom()
+    {
+        return "Som genérico de animal";
+    }
+}
+
+class Mamifero : Animal
+{
+    public override string EmitirSom()
+    {
+        return "Som de mamífero";
+    }
+}
+
+class Ave : Animal
+{
+    public override string EmitirSom()
+    {
+        return "Som de ave";
+    }
+}
+
+class Peixe : Animal
+{
+    public override string EmitirSom()
+    {
+        return "Som de peixe";
+    }
+}
+
+
+```
+
+5. Criar uma hierarquia de classes representando produtos eletrônicos, como Smartphone, Tablet e Laptop. Utilize herança e o conceito de métodos virtuais para implementar um método ExibirInformacoes que retorne informações específicas de cada produto.
+
+R:
+
+```c#
+
+class ProdutoEletronico
+{
     public string Modelo { get; set; }
-    public int Ano { get; set; }
-    public string Placa { get; set; }
+    public double Preco { get; set; }
 
-    public Veiculo(string marca, string modelo, int ano, string placa)
+    public virtual string ExibirInformacoes()
     {
-        Marca = marca;
-        Modelo = modelo;
-        Ano = ano;
-        Placa = placa;
+        return $"Modelo: {Modelo}, Preço: {Preco:C}";
     }
 }
 
-public class Cliente
+class Smartphone : ProdutoEletronico
 {
-    public string Nome { get; set; }
-    public string Contato { get; set; }
+    public string SistemaOperacional { get; set; }
 
-    public Cliente(string nome, string contato)
+    public override string ExibirInformacoes()
     {
-        Nome = nome;
-        Contato = contato;
+        return $"{base.ExibirInformacoes()}, SO: {SistemaOperacional}";
     }
 }
 
-
-public class Mecanico
+class Tablet : ProdutoEletronico
 {
-    public string Nome { get; set; }
-    public string Especialidade { get; set; }
+    public string TipoTela { get; set; }
 
-    public Mecanico(string nome, string especialidade)
+    public override string ExibirInformacoes()
     {
-        Nome = nome;
-        Especialidade = especialidade;
+        return $"{base.ExibirInformacoes()}, Tela: {TipoTela}";
     }
 }
 
-
-public class Oficina
+class Laptop : ProdutoEletronico
 {
-    private List<Veiculo> veiculosNaOficina;
+    public string Processador { get; set; }
 
-    public Oficina()
+    public override string ExibirInformacoes()
     {
-        veiculosNaOficina = new List<Veiculo>();
-    }
-
-    public void AgendarServico(Veiculo veiculo, Cliente cliente, Mecanico mecanico, string dataAgendamento)
-    {
-        veiculosNaOficina.Add(veiculo);
-
-        // Lógica para agendar o serviço (pode ser expandida conforme necessário)
-        Console.WriteLine($"Serviço agendado para {veiculo.Placa} em {dataAgendamento} com o mecânico {mecanico.Nome}.");
-    }
-
-    public void RealizarServico(Veiculo veiculo, Mecanico mecanico)
-    {
-        if (veiculosNaOficina.Contains(veiculo))
-        {
-           
-            Console.WriteLine($"Serviço realizado em {veiculo.Placa} pelo mecânico {mecanico.Nome}.");
-            veiculosNaOficina.Remove(veiculo);
-        }
-        else
-        {
-            Console.WriteLine($"O veículo {veiculo.Placa} não está na oficina para realizar o serviço.");
-        }
+        return $"{base.ExibirInformacoes()}, Processador: {Processador}";
     }
 }
 
-```
-
-3. Criar um programa `Program.cs` e simular o funcionamento do programa.
-
-R:
-
-```c#
-class Program
-{
-    static void Main()
-    {
-        // Criar instâncias de Veiculo, Cliente, Mecanico e Oficina
-        Veiculo meuCarro = new Veiculo("Chevrolet", "Cruze", 2020, "ABC1234");
-        Cliente cliente = new Cliente("Carlos", "987654321");
-        Mecanico mecanico = new Mecanico("Mário", "Mecânica Geral");
-        Oficina oficina = new Oficina();
-
-        // Agendar e realizar um serviço na oficina
-        oficina.AgendarServico(meuCarro, cliente, mecanico, "2023-12-18");
-        oficina.RealizarServico(meuCarro, mecanico);
-    }
-}
-```
-
-
-4. Escrever um programa que funcione como uma calculadora, que pode realizar as 4 operações básicas, além de calcular raiz quadrada e potências. O usuario deve entrar com dois números e um simbolo que represente a operação a ser feita. 
-
-R:
-
-```c#
-public class Calculadora
-{
-    public static double Calcular(double numero1, double numero2, char operacao)
-    {
-        double resultado = 0;
-
-        switch (operacao)
-        {
-            case '+':
-                resultado = Somar(numero1, numero2);
-                break;
-            case '-':
-                resultado = Subtrair(numero1, numero2);
-                break;
-            case '*':
-                resultado = Multiplicar(numero1, numero2);
-                break;
-            case '/':
-                resultado = Dividir(numero1, numero2);
-                break;
-            case '^':
-                resultado = Potencia(numero1, numero2);
-                break;
-            case 'r':
-                resultado = RaizQuadrada(numero1);
-                break;
-            default:
-                Console.WriteLine("Operação inválida.");
-                break;
-        }
-
-        return resultado;
-    }
-
-    private static double Somar(double a, double b)
-    {
-        return a + b;
-    }
-
-    private static double Subtrair(double a, double b)
-    {
-        return a - b;
-    }
-
-    private static double Multiplicar(double a, double b)
-    {
-        return a * b;
-    }
-
-    private static double Dividir(double a, double b)
-    {
-        if (b != 0)
-            return a / b;
-        else
-        {
-            Console.WriteLine("Erro: Divisão por zero.");
-            return 0;
-        }
-    }
-
-    private static double Potencia(double a, double b)
-    {
-        return Math.Pow(a, b);
-    }
-
-    private static double RaizQuadrada(double a)
-    {
-        return Math.Sqrt(a);
-    }
-}
 
 ```
