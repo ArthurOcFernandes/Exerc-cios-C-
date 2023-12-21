@@ -1,0 +1,42 @@
+[
+    {
+        "marca": "Toyota",
+        "modelo": "Corolla",
+        "ano": 2022,
+        "tipo": "Sedan",
+        "motor": "1.8L",
+        "transmissao": "Automática"
+    },
+    {
+        "marca": "Honda",
+        "modelo": "Civic",
+        "ano": 2022,
+        "tipo": "Sedan",
+        "motor": "2.0L",
+        "transmissao": "CVT"
+    },
+    {
+        "marca": "Ford",
+        "modelo": "Mustang",
+        "ano": 2022,
+        "tipo": "Coupé",
+        "motor": "5.0L V8",
+        "transmissao": "Manual"
+    },
+    {
+        "marca": "Tesla",
+        "modelo": "Model 3",
+        "ano": 2022,
+        "tipo": "Elétrico",
+        "motor": "Elétrico",
+        "autonomia": "450 km"
+    },
+    {
+        "marca": "Chevrolet",
+        "modelo": "Silverado",
+        "ano": 2022,
+        "tipo": "Caminhonete",
+        "motor": "6.2L V8",
+        "transmissao": "Automática"
+    }
+]
