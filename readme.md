@@ -1,185 +1,69 @@
-1. Criar uma interface chamada IForma que declare métodos para calcular a área e o perímetro de uma forma geométrica. Implemente esta interface em duas classes: Circulo e Retangulo.
+1. Escrever um programa que faça uam requisição para a API de games **CheapShark** e mostre na tela a lista de promoções cadastrada na ferramenta (Você pode utilizar o endpoint: https://www.cheapshark.com/api/1.0/deals).
 
 R:
 
 ```c#
-
-public interface IForma
+using (HttpClient client = new HttpClient())
 {
-    double CalcularArea();
-    double CalcularPerimetro();
+    string resposta = await client.GetStringAsync("https://www.cheapshark.com/api/1.0/deals");
+    Console.WriteLine(resposta);
 }
-
-public class Circulo : IForma
-{
-    public double Raio { get; set; }
-
-    public double CalcularArea()
-    {
-        return Math.PI * Math.Pow(Raio, 2);
-    }
-
-    public double CalcularPerimetro()
-    {
-        return 2 * Math.PI * Raio;
-    }
-}
-
-public class Retangulo : IForma
-{
-    public double Comprimento { get; set; }
-    public double Largura { get; set; }
-
-    public double CalcularArea()
-    {
-        return Comprimento * Largura;
-    }
-
-    public double CalcularPerimetro()
-    {
-        return 2 * (Comprimento + Largura);
-    }
-}
-
-
 ```
 
-2. Criar duas interfaces adicionais, IPilotavel e IVoavel. Implemente essas interfaces na classe Veiculo.
-
-R: 
-
-```c#
-public interface IPilotavel
-{
-    void Pilotar();
-}
-
-public interface IVoavel
-{
-    void Voar();
-}
-
-public class Veiculo : IPilotavel, IVoavel
-{
-    public void Pilotar()
-    {
-        Console.WriteLine("Veículo está pilotando");
-    }
-
-    public void Voar()
-    {
-        Console.WriteLine("Veículo está voando");
-    }
-}
-
-```
-
-3. Criar uma interface chamada IPagavel com um método CalcularPagamento. Implemente essa interface em duas classes, Produto e Servico. O método CalcularPagamento deve retornar o valor total a ser pago, levando em consideração a quantidade para produtos e a taxa horária para serviços.
+2. Escrever um programa que solicite dois números `a` e `b` lidos do teclado e realize a divisão de `a` por `b`. Caso essa operação não seja possível, mostrar uma mensagem no console  que deixe claro o erro ocorrido.
 
 R:
 
 ```c#
-
-public interface IPagavel
+try
 {
-    decimal CalcularPagamento();
-}
+    Console.Write("Digite o numerador: ");
+    int numerador = int.Parse(Console.ReadLine());
 
-public class Produto : IPagavel
+    Console.Write("Digite o denominador: ");
+    int denominador = int.Parse(Console.ReadLine());
+
+    int resultado = numerador / denominador;
+    Console.WriteLine($"Resultado: {resultado}");
+}
+catch (DivideByZeroException ex)
 {
-    public string Nome { get; set; }
-    public decimal PrecoUnitario { get; set; }
-    public int Quantidade { get; set; }
-
-    public decimal CalcularPagamento()
-    {
-        return PrecoUnitario * Quantidade;
-    }
+    Console.WriteLine($"Erro: na matemática não é permitida a divisão por 0.");
 }
-
-public class Servico : IPagavel
-{
-    public string Nome { get; set; }
-    public decimal TaxaHoraria { get; set; }
-    public int HorasTrabalhadas { get; set; }
-
-    public decimal CalcularPagamento()
-    {
-        return TaxaHoraria * HorasTrabalhadas;
-    }
-}
-
 
 ```
 
-4. Criar uma interface chamada INotificavel com um método EnviarNotificacao. Implemente essa interface em duas classes, Email e SMS. O método EnviarNotificacao deve exibir mensagens diferentes para cada tipo de notificação.
+3. Declarar uma lista de inteiros e tente acessar um elemento em um índice inexistente. Tratar a exceção apropriada.
+
+R:
 
 ```c#
-public interface INotificavel
+try
 {
-    void EnviarNotificacao();
+    List<int> numeros = new List<int> { 1, 2, 3 };
+    Console.WriteLine($"Elemento no índice 5: {numeros[5]}");
 }
-
-public class Email : INotificavel
+catch (ArgumentOutOfRangeException ex)
 {
-    public string EnderecoEmail { get; set; }
-
-    public void EnviarNotificacao()
-    {
-        Console.WriteLine($"Enviando e-mail para {EnderecoEmail}: Notificação importante!");
-    }
-}
-
-public class SMS : INotificavel
-{
-    public string NumeroTelefone { get; set; }
-
-    public void EnviarNotificacao()
-    {
-        Console.WriteLine($"Enviando SMS para {NumeroTelefone}: Notificação importante!");
-    }
+    Console.WriteLine($"Erro: {ex.Message}");
 }
 
 ```
 
-5. Criar uma interface chamada IArmazenavel com métodos Salvar e Recuperar. Implemente essa interface em duas classes, Arquivo e BancoDeDados. Os métodos Salvar e Recuperar devem exibir mensagens simulando a ação de salvar e recuperar dados.
+4. Criar uma classe simples com um método e chame esse método em um objeto nulo. Tratar a exceção de método em objeto nulo.
+
 
 R: 
 
 ```c#
-public interface IArmazenavel
+try
 {
-    void Salvar();
-    void Recuperar();
+    MinhaClasse objetoNulo = null;
+    objetoNulo.Meumetodo();
+}
+catch (NullReferenceException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
 }
 
-public class Arquivo : IArmazenavel
-{
-    public string NomeArquivo { get; set; }
-
-    public void Salvar()
-    {
-        Console.WriteLine($"Salvando dados no arquivo {NomeArquivo}.");
-    }
-
-    public void Recuperar()
-    {
-        Console.WriteLine($"Recuperando dados do arquivo {NomeArquivo}.");
-    }
-}
-
-public class BancoDeDados : IArmazenavel
-{
-    public string NomeBanco { get; set; }
-
-    public void Salvar()
-    {
-        Console.WriteLine($"Salvando dados no banco de dados {NomeBanco}.");
-    }
-
-    public void Recuperar()
-    {
-        Console.WriteLine($"Recuperando dados do banco de dados {NomeBanco}.");
-    }
-}
 ```
