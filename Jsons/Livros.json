@@ -1,0 +1,42 @@
+[
+    {
+        "titulo": "O Senhor dos Anéis",
+        "autor": "J.R.R. Tolkien",
+        "ano_publicacao": 1954,
+        "genero": "Fantasia",
+        "paginas": 1178,
+        "editora": "Martins Fontes"
+    },
+    {
+        "titulo": "1984",
+        "autor": "George Orwell",
+        "ano_publicacao": 1949,
+        "genero": "Ficção Científica",
+        "paginas": 328,
+        "editora": "Companhia das Letras"
+    },
+    {
+        "titulo": "Orgulho e Preconceito",
+        "autor": "Jane Austen",
+        "ano_publicacao": 1813,
+        "genero": "Romance",
+        "paginas": 416,
+        "editora": "Nova Fronteira"
+    },
+    {
+        "titulo": "Cem Anos de Solidão",
+        "autor": "Gabriel García Márquez",
+        "ano_publicacao": 1967,
+        "genero": "Realismo Mágico",
+        "paginas": 458,
+        "editora": "Record"
+    },
+    {
+        "titulo": "A Guerra dos Tronos",
+        "autor": "George R.R. Martin",
+        "ano_publicacao": 1996,
+        "genero": "Fantasia",
+        "paginas": 592,
+        "editora": "Leya"
+    }
+]
