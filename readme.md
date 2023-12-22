@@ -1,126 +1,261 @@
-1. Dada uma lista de números, criar uma consulta LINQ para retornar apenas os elementos únicos da lista.
+1. Criar um programa que permite ao usuário inserir informações de uma pessoa (nome, idade, e e-mail), serializa essas informações em formato JSON e salva em um arquivo.
 
 R:
 
 ```c#
-List<int> numeros = new List<int> { 1, 2, 3, 2, 4, 5, 3, 6, 7, 8, 9, 1 };
+using System;
+using System.IO;
+using System.Text.Json;
 
-var numerosUnicos = numeros.Distinct();
-
-Console.WriteLine("Números únicos na lista:");
-foreach (var numero in numerosUnicos)
-{
-    Console.Write(numero + " ");
-}
-```
-
-2. Dadas duas listas de números, criar uma consulta LINQ para retornar uma lista que contenha apenas os números que estão presentes em ambas as listas. 
-
-R:
-
-```c#
-List<int> lista1 = new List<int> { 1, 2, 3, 4, 5 };
-List<int> lista2 = new List<int> { 3, 4, 5, 6, 7 };
-
-var numerosComuns = lista1.Intersect(lista2);
-
-Console.WriteLine("Números presentes em ambas as listas:");
-foreach (var numero in numerosComuns)
-{
-    Console.Write(numero + " ");
-}
-```
-
-3. Dada uma lista de livros com título, autor e ano de publicação, criar uma consulta LINQ para retornar uma lista com os títulos dos livros publicados após o ano 2000, ordenados alfabeticamente.
-
-R: 
-
-Classe Livro
-```c#
-class Livro
-{
-    public string Titulo { get; set; }
-    public string Autor { get; set; }
-    public int AnoPublicacao { get; set; }
-}
-```
-
-```c#
-List<Livro> livros = new List<Livro>
-{
-    new Livro { Titulo = "Aprendendo LINQ", Autor = "João Silva", AnoPublicacao = 2005 },
-    new Livro { Titulo = "Programação em C#", Autor = "Ana Oliveira", AnoPublicacao = 2010 },
-    new Livro { Titulo = "Algoritmos e Estruturas de Dados", Autor = "Carlos Santos", AnoPublicacao = 1998 },
-    new Livro { Titulo = "Introdução à Inteligência Artificial", Autor = "Mariana Costa", AnoPublicacao = 2021 },
-    new Livro { Titulo = "Design Patterns", Autor = "Paulo Rocha", AnoPublicacao = 2002 }
-};
-
-var titulosLivros = livros
-    .Where(l => l.AnoPublicacao > 2000)
-    .OrderBy(l => l.Titulo)
-    .Select(l => l.Titulo);
-
-Console.WriteLine("Títulos de livros publicados após 2000, ordenados alfabeticamente:");
-foreach (var titulo in titulosLivros)
-{
-    Console.WriteLine(titulo);
-}
-
-```
-
-4. Dada uma lista de produtos com nome e preço, criar uma consulta LINQ para calcular o preço médio dos produtos.
-
-R: 
-
-classe Produto:
-```c#
-class Produto
+class Pessoa
 {
     public string Nome { get; set; }
-    public decimal Preco { get; set; }
+    public int Idade { get; set; }
+    public string Email { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Criar uma instância de Pessoa e obter informações do usuário
+        Pessoa pessoa = new Pessoa();
+        Console.Write("Digite o nome: ");
+        pessoa.Nome = Console.ReadLine();
+        Console.Write("Digite a idade: ");
+        pessoa.Idade = int.Parse(Console.ReadLine());
+        Console.Write("Digite o e-mail: ");
+        pessoa.Email = Console.ReadLine();
+
+        // Serializar a pessoa em JSON
+        string jsonString = JsonSerializer.Serialize(pessoa);
+
+        // Nome do arquivo para salvar
+        string fileName = "pessoa.json";
+
+        // Escrever JSON no arquivo
+        File.WriteAllText(fileName, jsonString);
+
+        Console.WriteLine($"Os dados foram salvos em {fileName}");
+    }
 }
 ```
-main:
+
+2. Criar um programa que lê um arquivo JSON contendo informações de uma pessoa, desserializa essas informações e exibe na tela.
+
+R: 
+
 ```c#
-List<Produto> produtos = new List<Produto>
+using System;
+using System.IO;
+using System.Text.Json;
+
+class Pessoa
+{
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public string Email { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Nome do arquivo para ler
+        string fileName = "pessoa.json";
+
+        // Verificar se o arquivo existe
+        if (File.Exists(fileName))
         {
-            new Produto { Nome = "Laptop", Preco = 1200 },
-            new Produto { Nome = "Smartphone", Preco = 800 },
-            new Produto { Nome = "Tablet", Preco = 500 },
-            new Produto { Nome = "Câmera", Preco = 300 }
-        };
+            // Ler conteúdo do arquivo JSON
+            string jsonString = File.ReadAllText(fileName);
 
-        var precoMedio = produtos.Average(p => p.Preco);
+            // Desserializar JSON para objeto Pessoa
+            Pessoa pessoa = JsonSerializer.Deserialize<Pessoa>(jsonString);
 
-        Console.WriteLine("Preço médio dos produtos: " + precoMedio);
+            // Exibir informações da pessoa
+            Console.WriteLine($"Nome: {pessoa.Nome}");
+            Console.WriteLine($"Idade: {pessoa.Idade}");
+            Console.WriteLine($"E-mail: {pessoa.Email}");
+        }
+        else
+        {
+            Console.WriteLine($"O arquivo {fileName} não existe.");
+        }
+    }
+}
 ```
 
-5. Dada uma lista de strings, criar uma consulta LINQ para ordenar as palavras por comprimento e retornar apenas aquelas que têm mais de 3 caracteres.
+3. Criar um programa que permite ao usuário inserir informações de várias pessoas, armazena essas informações em uma lista, serializa a lista em formato JSON e salva em um arquivo.
 
 R:
 
 ```c#
-List<string> palavras = new List<string> { "cachorro", "gato", "elefante", "leão", "cobra" };
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
-var palavrasFiltradas = palavras.Where(p => p.Length > 3).OrderBy(p => p.Length);
-
-Console.WriteLine("Palavras com mais de 3 caracteres, ordenadas por comprimento:");
-foreach (var palavra in palavrasFiltradas)
+class Pessoa
 {
-    Console.Write(palavra + " ");
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public string Email { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Criar uma lista de pessoas
+        List<Pessoa> pessoas = new List<Pessoa>();
+
+        // Permitir ao usuário inserir informações de várias pessoas
+        while (true)
+        {
+            Pessoa pessoa = new Pessoa();
+            Console.Write("Digite o nome (ou 'sair' para encerrar): ");
+            string nome = Console.ReadLine();
+
+            if (nome.ToLower() == "sair")
+                break;
+
+            pessoa.Nome = nome;
+
+            Console.Write("Digite a idade: ");
+            pessoa.Idade = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o e-mail: ");
+            pessoa.Email = Console.ReadLine();
+
+            // Adicionar pessoa à lista
+            pessoas.Add(pessoa);
+        }
+
+        // Serializar a lista em JSON
+        string jsonString = JsonSerializer.Serialize(pessoas);
+
+        // Nome do arquivo para salvar
+        string fileName = "pessoas.json";
+
+        // Escrever JSON no arquivo
+        File.WriteAllText(fileName, jsonString);
+
+        Console.WriteLine($"Os dados foram salvos em {fileName}");
+    }
 }
 ```
 
-6. Dada uma lista de inteiros, criar uma consulta LINQ para retornar apenas os números pares.
+4. Criar um programa que lê um arquivo JSON contendo informações de várias pessoas, desserializa essas informações em uma lista e exibe na tela.
+
+R:
+
+```C#
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+
+class Pessoa
+{
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public string Email { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Nome do arquivo para ler
+        string fileName = "pessoas.json";
+
+        // Verificar se o arquivo existe
+        if (File.Exists(fileName))
+        {
+            // Ler conteúdo do arquivo JSON
+            string jsonString = File.ReadAllText(fileName);
+
+            // Desserializar JSON para lista de pessoas
+            List<Pessoa> pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString);
+
+            // Exibir informações das pessoas
+            Console.WriteLine("Informações das Pessoas:");
+
+            foreach (Pessoa pessoa in pessoas)
+            {
+                Console.WriteLine($"Nome: {pessoa.Nome}, Idade: {pessoa.Idade}, E-mail: {pessoa.Email}");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"O arquivo {fileName} não existe.");
+        }
+    }
+}
+```
+
+5. Criar um programa que lê um arquivo JSON contendo informações de várias pessoas, permite ao usuário inserir uma idade e exibe as pessoas com aquela idade.
+
+R: 
 
 ```c#
-List<int> numeros = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
 
-var numerosPares = numeros.Where(x => x % 2 == 0);
-
-Console.WriteLine("Números Pares:");
-foreach (var numero in numerosPares)
+class Pessoa
 {
-    Console.Write(numero + " ");
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public string Email { get; set; }
 }
+
+class Program
+{
+    static void Main()
+    {
+        // Nome do arquivo para ler
+        string fileName = "pessoas.json";
+
+        // Verificar se o arquivo existe
+        if (File.Exists(fileName))
+        {
+            // Ler conteúdo do arquivo JSON
+            string jsonString = File.ReadAllText(fileName);
+
+            // Desserializar JSON para lista de pessoas
+            List<Pessoa> pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString);
+
+            // Permitir ao usuário inserir uma idade
+            Console.Write("Digite a idade para buscar pessoas: ");
+            int idadeParaBuscar = int.Parse(Console.ReadLine());
+
+            // Filtrar pessoas com a idade especificada
+            List<Pessoa> pessoasComIdade = pessoas.Where(p => p.Idade == idadeParaBuscar).ToList();
+
+            if (pessoasComIdade.Any())
+            {
+                // Exibir informações das pessoas com a idade especificada
+                Console.WriteLine($"Pessoas com {idadeParaBuscar} anos:");
+
+                foreach (Pessoa pessoa in pessoasComIdade)
+                {
+                    Console.WriteLine($"Nome: {pessoa.Nome}, E-mail: {pessoa.Email}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Nenhuma pessoa encontrada com {idadeParaBuscar} anos.");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"O arquivo {fileName} não existe.");
+        }
+    }
+}
+
 ```
